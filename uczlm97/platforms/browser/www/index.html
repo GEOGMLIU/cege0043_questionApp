@@ -113,8 +113,11 @@
        </div>
        <p><div id="username">     </div><br/></p>
      </header>
-     <!-- Left aligned menu below button -->
-     <nav class="mdl-navigation">
+     <!--  the left menu format code adapted from here:
+      https://stackoverflow.com/questions/31350822/material-design-lite-navigation
+    -->
+    <!-- Left aligned menu below button -->
+    <nav class="mdl-navigation">
       <a id="submenu" class="mdl-navigation__link" href="#">Participation Rates</a>
       <a class="mdl-navigation__link" href="" onclick="loadQuestionPoint(); return false;">Last Week Questions</a>
       <a class="mdl-navigation__link" href="" onclick="removeQuestionPoint(); return false;">Most difficult Questions</a>
@@ -126,14 +129,7 @@
     <li class="mdl-menu__item" onclick="loadQuestionPoint(); return false;">my daily rates</li>
     <li class="mdl-menu__item" onclick="removeQuestionPoint(); return false;">all users data</li>
   </ul>
-  <!--
-  <nav class="demo-navigation mdl-navigation mdl-color--blue-grey-800">
-    <a class="mdl-navigation__link" href="" onclick="loadQuestionPoint(); return false;"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">inbox</i>load Question Points</a>
-    <a class="mdl-navigation__link" href="" onclick="removeQuestionPoint();return false;"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">delete</i>remove Question Points</a>
-    <a class="mdl-navigation__link" href="" onclick="trackLocation(); return false;"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">delete</i>track Location</a>
 
-  </nav>
--->
   <label for="switch1" class="mdl-switch mdl-js-switch mdl-js-ripple-effect">
     <input type="checkbox" id="switch1" class="mdl-switch__input" onclick="checkQuestionLayer();">
     <span class="mdl-switch__label">Load Question Points</span>
@@ -147,7 +143,7 @@
 
 </main class="mdl-layout__content mdl-color--grey-100"> 
 <main class="mdl-layout__content mdl-color--grey-100">
-  <div id="div1" style="width: 1000px; height: 500px;">
+  <div id="div1" style="width: 1400px; height: 500px;">
     <div w3-include-html="createQuestionForm.html"></div>
   </main class="mdl-layout__content mdl-color--grey-100"> 
 
@@ -160,7 +156,6 @@
   <script src="js/userTracking.js"></script>
   <script src="js/startup.js"></script>
   <script src="js/utilities.js"></script>
-  <script src="js/AJAX2.js"></script>
   <script src="js/uploadQuestion.js"></script>
   <script src="js/questionsLoad.js"></script>
 
