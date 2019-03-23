@@ -1,17 +1,40 @@
+//global varible for question App
+//load and remove the Quiz points
 var QuizPointLayer;
-var xhrFormData;
+//create variables that will hold the XML Http Request()
+var xhrQuiz;
+var xhrCorrectNum;
+var xhrUserRanking;
+//custom marker show quiz points
 var ptMarkerBlue=L.AwesomeMarkers.icon({
 	icon:'play',
 	markerColor:'blue'});
 
+function startQuizLoad() {
+	xhrQuiz = new XMLHttpRequest();
+	var url = "http://developer.cege.ucl.ac.uk:"+httpPortNumber;
+	url = url + "/getQuizPoints/"+httpPortNumber;
+	xhrQuiz.open("GET", url, true);
+	xhrQuiz.onreadystatechange = quizPointsResponse;
+	xhrQuiz.send();
+
+}
+
+function quizPointsResponse(){
+	if (xhrQuiz.readyState == 4) {
+	// once the data is ready, process the data
+	var quizPointsData = xhrQuiz.responseText;
+	loadQuizLayer(quizPointsData);
+	}
+}
 
 
 // keep the layer global so that we can automatically pop up a
 // pop-up menu on a point if necessary
 // we can also use this to determine distance for the proximity alert
-function loadFormData(formData) {
+function loadQuizLayer(quizPointsData) {
 	// convert the text received from the server to JSON
-	var formJSON = JSON.parse(formData);
+	var formJSON = JSON.parse(quizPointsData);
 	// load the geoJSON layer
 	QuizPointLayer = L.geoJson(formJSON,
 	{
@@ -43,7 +66,6 @@ function loadFormData(formData) {
 			},
 		}).addTo(mymap);
 	mymap.fitBounds(QuizPointLayer.getBounds());
-	closestFormPoint();
 }
 
 function closestFormPoint() {  
@@ -82,5 +104,56 @@ function closestFormPoint() {
 } 
 
 
+//the function to get correct answer numbers
+function showCorrectNum(){
+	xhrCorrectNum = new XMLHttpRequest();
+	var url = "http://developer.cege.ucl.ac.uk:"+httpPortNumber;
+	url = url + "/getCorrectAnsNum/"+httpPortNumber;
+	xhrCorrectNum.open("GET", url, true);
+	xhrCorrectNum.onreadystatechange = ansNumResponse;
+	xhrCorrectNum.send();
+}
+
+// the code to show the user's ranking
+function showRanking(){
+	xhrUserRanking = new XMLHttpRequest();
+	var url = "http://developer.cege.ucl.ac.uk:"+httpPortNumber;
+	url = url + "/getRanking/"+httpPortNumber;
+	xhrUserRanking.open("GET", url, true);
+	xhrUserRanking.onreadystatechange = rankingResponse;
+	xhrUserRanking.send();
+}
 
 
+
+function ansNumResponse(){
+	if (xhrCorrectNum.readyState == 4) {
+		// once the data is ready, process the data
+		var correctNumString = xhrCorrectNum.responseText;
+
+		//the code is to convert string into JSON format array
+		//in order to get the num_questions
+		var correctNumData="";
+		for (var i = 1; i <correctNumString.length-1; i++) {
+			correctNumData=correctNumData+correctNumString[i];
+		}
+		var ansNumJSON = JSON.parse(correctNumData);
+		alert("You have answered "+ ansNumJSON.array_to_json[0].num_questions + " questions correctly.");
+	}
+}
+
+function rankingResponse(){
+	if (xhrUserRanking.readyState == 4) {
+		// once the data is ready, process the data
+		var rankingString = xhrUserRanking.responseText;
+
+		//the code is to convert string into JSON format array
+		//in order to get the rank
+		var rankingData="";
+		for (var i = 1; i <rankingString.length-1; i++) {
+			rankingData=rankingData+rankingString[i];
+		}
+		var rankingJSON = JSON.parse(rankingData);
+		alert("You ranking is: "+ rankingJSON.array_to_json[0].rank + ".");
+	}
+}
