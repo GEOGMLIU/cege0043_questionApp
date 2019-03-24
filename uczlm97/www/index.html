@@ -116,17 +116,23 @@
     -->
     <!-- Left aligned menu below button -->
     <nav class="mdl-navigation">
-      <a id="submenu" class="mdl-navigation__link" href="#">Participation Rates</a>
-      <a class="mdl-navigation__link" href="" onclick="loadQuestionPoint(); return false;">Last Week Questions</a>
-      <a class="mdl-navigation__link" href="" onclick="removeQuestionPoint(); return false;">Most difficult Questions</a>
+      <a id="submenu1" class="mdl-navigation__link" href="#">My Participation Rates</a>
+      <a id="submenu2" class="mdl-navigation__link" href="#" >All Users Participation Rates</a>
+      <a class="mdl-navigation__link" href="" onclick="menuClicked(); return false;">Most difficult Questions</a>
     </nav>
 
     <!-- sub menu only visible when clicked on the link above -->
     <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect"
-    for="submenu">
-    <li class="mdl-menu__item" onclick="loadQuestionPoint(); return false;">my daily rates</li>
-    <li class="mdl-menu__item" onclick="removeQuestionPoint(); return false;">all users data</li>
+    for="submenu1">
+    <li class="mdl-menu__item" ><a href="d3MyRates1.html">Questions Answered</a></li>
+    <li class="mdl-menu__item" ><a href="d3MyRates2.html">Questions Correct</a></li>
   </ul>
+    <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect"
+    for="submenu2">
+    <li class="mdl-menu__item" ><a href="d3AllRates1.html">Questions Answered</a></li>
+    <li class="mdl-menu__item" ><a href="d3AllRates2.html">Questions Correct</a></li>
+  </ul>
+
   <br/><br/>
   <label for="switch1" class="mdl-switch mdl-js-switch mdl-js-ripple-effect">
     <input type="checkbox" id="switch1" class="mdl-switch__input" onclick="checkQuestionLayer();">
@@ -135,7 +141,7 @@
   <br/><br/>
   <label for="switch2" class="mdl-switch mdl-js-switch mdl-js-ripple-effect">
     <input type="checkbox" id="switch2" class="mdl-switch__input" onclick="checkLatestQLayer();">
-    <span class="mdl-switch__label">Load the Latest Question Points</span>
+    <span class="mdl-switch__label">Last Week Questions</span>
   </label>
 </div>
 <!-- Modal box content
